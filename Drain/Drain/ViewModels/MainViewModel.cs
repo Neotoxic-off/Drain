@@ -1,4 +1,5 @@
 ﻿using Drain.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,14 @@ namespace Drain.ViewModels
         public EngineViewModel Engine { get; set; }
 
         private DelegateCommand Loader { get; set; }
-        public DelegateCommand GenerateCommand { get; set; }
+        public DelegateCommand SelectCommand { get; set; }
 
         public MainViewModel()
         {
             Settings = new SettingsViewModel();
             Engine = new EngineViewModel();
             Loader = new DelegateCommand(Load);
-            GenerateCommand = new DelegateCommand(Engine.Generate);
+            SelectCommand = new DelegateCommand(Select);
 
             Loader.Execute(null);
         }
@@ -29,6 +30,16 @@ namespace Drain.ViewModels
         private void Load(object data)
         {
             Settings.LoadVersion();
+        }
+
+        private void Select(object data)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return;
+            }
         }
     }
 }

@@ -10,12 +10,12 @@
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Background}"
         Foreground="{StaticResource Red}"
-        Height="700"
-        Width="500"
-        MinHeight="700"
-        MinWidth="500"
-        MaxHeight="700"
-        MaxWidth="500"
+        Height="250"
+        Width="450"
+        MinHeight="250"
+        MinWidth="450"
+        MaxHeight="250"
+        MaxWidth="450"
         ResizeMode="NoResize"
         Title="{Binding Settings.Version}">
 
@@ -27,13 +27,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="15"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
@@ -57,17 +57,24 @@
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Margin="10" Background="#f8f9fa" CornerRadius="10" BorderBrush="#ced4da" BorderThickness="1">
-                <WrapPanel AllowDrop="True" Drop="TargetPanelDrop">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                </WrapPanel>
-            </Border>
+                <Label Grid.Column="0" Content="Status:" Foreground="White" VerticalAlignment="Center" FontSize="15"/>
+                <Label Grid.Column="1" Content="loading" Foreground="White" VerticalAlignment="Center" FontSize="15"/>
+            </Grid>
             <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Style="{StaticResource FillButton}" Command="{Binding GenerateCommand}" Content="Generate"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource FillButton}" Command="{Binding SelectCommand}" Content="Select" Margin="10,0,10,0"/>
+                    <Button Style="{StaticResource FillButton}" Command="{Binding DrainCommand}" Content="Drain" Margin="10,0,10,0"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
