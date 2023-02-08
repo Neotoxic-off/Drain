@@ -58,7 +58,7 @@
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -68,7 +68,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Content="Status:" Foreground="White" VerticalAlignment="Center" FontSize="15"/>
-                <Label Grid.Column="1" Content="loading" Foreground="White" VerticalAlignment="Center" FontSize="15"/>
+                <Label Grid.Column="1" Content="{Binding Logger.Log}" Foreground="White" VerticalAlignment="Center" FontSize="15"/>
             </Grid>
             <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
