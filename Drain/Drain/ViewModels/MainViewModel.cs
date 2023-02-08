@@ -61,17 +61,31 @@ namespace Drain.ViewModels
 
         private void Drain(object data)
         {
-            string[] lines = LoadContent();
+            string[] lines = null;
             string name = null;
 
-            foreach (string line in lines)
+            if (Validate() == true)
             {
-                name = GetName(line);
-                Logger.Record($"downloading {name}");
-                ManagerViewModel.Download(line, $"{Root}/{name}");
-                Logger.Record("downloaded");
+                lines = LoadContent();
+                foreach (string line in lines)
+                {
+                    name = GetName(line);
+                    Logger.Record($"downloading {name}");
+                    ManagerViewModel.Download(line, $"{Root}/{name}");
+                    Logger.Record("downloaded");
+                }
+                Logger.Record("all content drained");
+            } else
+            {
+                Logger.Record("no content to drain");
             }
-            Logger.Record("all content drained");
+        }
+
+        private bool Validate()
+        {
+            if (openFileDialog.FileName != null)
+                return (File.Exists(openFileDialog.FileName));
+            return (false);
         }
 
         private string GetName(string url)
