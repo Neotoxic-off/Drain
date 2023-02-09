@@ -36,7 +36,7 @@ namespace Drain.ViewModels
 
         private void Load(object data)
         {
-            Logger.Record("loading Drain");
+            Logger.Record("loading");
 
             Settings.LoadVersion();
             openFileDialog = new OpenFileDialog();
@@ -45,7 +45,7 @@ namespace Drain.ViewModels
                 Directory.CreateDirectory(Root);
             }
 
-            Logger.Record("Drain loaded");
+            Logger.Record("loaded");
         }
 
         private void Select(object data)
@@ -69,7 +69,7 @@ namespace Drain.ViewModels
                 lines = LoadContent();
                 foreach (string line in lines)
                 {
-                    name = GetName(line);
+                    name = Clean(GetName(line));
                     Logger.Record($"downloading {name}");
                     ManagerViewModel.Download(line, $"{Root}/{name}");
                     Logger.Record("downloaded");
@@ -79,6 +79,22 @@ namespace Drain.ViewModels
             {
                 Logger.Record("no content to drain");
             }
+        }
+
+        private string Clean(string path)
+        {
+            string cleanned = path;
+            char[] specials = { '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '/', ':', ';', '<', '=', '>', '?', '[', '\\', ']', '^', '`', '{', '}', '|', '~' };
+        
+            foreach (char c in specials)
+            {
+                if (cleanned.Contains(c) == true)
+                {
+                    cleanned = cleanned.Replace(c, '_');
+                }
+            }
+
+            return (cleanned);
         }
 
         private bool Validate()
