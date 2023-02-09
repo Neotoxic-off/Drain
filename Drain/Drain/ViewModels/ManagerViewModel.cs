@@ -46,11 +46,10 @@ namespace Drain.ViewModels
 
         public void Download(string url, string path)
         {
-            byte[] content = null;
             int size = 10;
             byte[] buffer = new byte[size];
-            Format extension = Format.unknown;
             int bytes_read = 0;
+            Format extension = Format.unknown;
 
             if (File.Exists(path) == true)
             {
@@ -62,15 +61,22 @@ namespace Drain.ViewModels
                 bytes_read = fs.Read(buffer, 0, size);
                 fs.Close();
             }
-            extension = SearchFormat(buffer);
-            if (extension != Format.unknown)
+            if (bytes_read >= size)
             {
-                Rename(path, $"{path}.{extension}");
+                extension = SearchFormat(buffer);
+                if (extension != Format.unknown)
+                {
+                    Rename(path, $"{path}.{extension}");
+                }
             }
         }
 
         private void Rename(string path, string name)
         {
+            if (File.Exists(name) == true)
+            {
+                File.Delete(name);
+            }
             File.Move(path, name);
         }
 
